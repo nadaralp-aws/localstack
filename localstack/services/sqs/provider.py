@@ -621,6 +621,10 @@ class SqsProvider(SqsApi, ServiceLifecycleHook):
             attributes.get(QueueAttributeName.FifoQueue, "false").lower() == "true"
         )
 
+        print("creating queues - nadar alpenidze")
+        LOG.debug("creating queues - nadar alpenidze debug")
+        LOG.info("creating queues - nadar alpenidze info")
+
         # Special Case TODO: why is an emtpy policy passed at all? same in set_queue_attributes
         if attributes and attributes.get(QueueAttributeName.Policy) == "":
             del attributes[QueueAttributeName.Policy]
@@ -691,6 +695,10 @@ class SqsProvider(SqsApi, ServiceLifecycleHook):
         max_results: BoxedInteger = None,
     ) -> ListQueuesResult:
         store = self.get_store(context.account_id, context.region)
+
+        print("listing queues - nadar alpenidze")
+        LOG.debug("listing queues - nadar alpenidze debug")
+        LOG.info("listing queues - nadar alpenidze info")
 
         if queue_name_prefix:
             urls = [

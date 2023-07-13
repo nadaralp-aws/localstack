@@ -105,6 +105,7 @@ _click_format_option = click.option(
 )
 @click.version_option(__version__, "--version", "-v", message="%(version)s")
 @click.option("-d", "--debug", is_flag=True, help="Enable CLI debugging mode")
+# @click.option("-Nadar", "--NADARR", is_flag=True, help="Enable CLI debugging mode")
 @click.option("-p", "--profile", type=str, help="Set the configuration profile")
 def localstack(debug, profile) -> None:
     # --profile is read manually in localstack.cli.main because it needs to be read before localstack.config is read
@@ -412,6 +413,7 @@ def cmd_start(docker: bool, host: bool, no_banner: bool, detached: bool) -> None
         console.rule("LocalStack Runtime Log (press [bold][yellow]CTRL-C[/yellow][/bold] to quit)")
 
     if host:
+        print("running if = host")
         # call hooks to prepare host
         bootstrap.prepare_host(console)
 
@@ -436,6 +438,7 @@ def cmd_start(docker: bool, host: bool, no_banner: bool, detached: bool) -> None
         config.OVERRIDE_IN_DOCKER = False
         config.is_in_docker = False
         config.dirs = config.init_directories()
+        print("running else")
 
         # call hooks to prepare host (note that this call should stay below the config overrides above)
         bootstrap.prepare_host(console)
