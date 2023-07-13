@@ -664,10 +664,10 @@ class SqsProvider(SqsApi, ServiceLifecycleHook):
 
             # create the appropriate queue
             if fifo:
-                queue = FifoQueue("mynadarqueue", context.region, context.account_id, attributes, tags)
+                queue = FifoQueue(queue_name, context.region, context.account_id, attributes, tags)
             else:
                 queue = StandardQueue(
-                    "mynadarqueue", context.region, context.account_id, attributes, tags
+                    queue_name, context.region, context.account_id, attributes, tags
                 )
 
             LOG.debug("creating queue key=%s attributes=%s tags=%s", queue_name, attributes, tags)
