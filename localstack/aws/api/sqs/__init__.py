@@ -548,6 +548,7 @@ class SqsApi:
         attributes: QueueAttributeMap = None,
         tags: TagMap = None,
     ) -> CreateQueueResult:
+        print("createqueue test nadar 100")
         raise NotImplementedError
 
     @handler("DeleteMessage")
@@ -609,6 +610,7 @@ class SqsApi:
         next_token: Token = None,
         max_results: BoxedInteger = None,
     ) -> ListQueuesResult:
+        print("list test nadar 100")
         raise NotImplementedError
 
     @handler("PurgeQueue")
