@@ -105,6 +105,7 @@ class ServiceRequestRouter(Handler):
         self.handlers = dict()
 
     def __call__(self, chain: HandlerChain, context: RequestContext, response: Response):
+        print("__calling__")
         if not context.service:
             return
 
@@ -123,12 +124,14 @@ class ServiceRequestRouter(Handler):
         handler(chain, context, response)
 
     def add_handler(self, key: ServiceOperation, handler: Handler):
+        print("adding a handler")
         if key in self.handlers:
             LOG.warning("overwriting existing route for %s", key)
 
         self.handlers[key] = handler
 
     def add_provider(self, provider: Any, service: Optional[Union[str, ServiceModel]] = None):
+        print("adding a provider")
         if not service:
             service = provider.service
 
