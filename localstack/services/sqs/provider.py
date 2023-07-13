@@ -692,6 +692,8 @@ class SqsProvider(SqsApi, ServiceLifecycleHook):
     ) -> ListQueuesResult:
         store = self.get_store(context.account_id, context.region)
 
+        print("listing queues - nadar alpenidze")
+
         if queue_name_prefix:
             urls = [
                 queue.url(context)
