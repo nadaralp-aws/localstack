@@ -13,6 +13,7 @@ def main():
     # initialize CLI plugins
     from .localstack import create_with_plugins
 
+    print("creating the god damn cli")
     cli = create_with_plugins()
     cli()
 
