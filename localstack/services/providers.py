@@ -319,6 +319,7 @@ def sqs():
 
     query_api.register(edge.ROUTER)
 
+    print("creating sqs provider")
     provider = SqsProvider()
     return Service.for_provider(provider, dispatch_table_factory=MotoFallbackDispatcher)
 

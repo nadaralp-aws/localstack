@@ -111,7 +111,7 @@ class SQSQueue(GenericBaseModel):
                 return queue_url
             return arns.sqs_queue_url_for_arn(properties["QueueArn"])
 
-        def _handle_result(result: dict, logical_resource_id: str, resource: dict):
+        def _handle_result(result: dict, logxical_resource_id: str, resource: dict):
             resource["PhysicalResourceId"] = result["QueueUrl"]
 
         return {
