@@ -48,6 +48,7 @@ def create_dispatch_table(delegate: object) -> DispatchTable:
     """
     # scan class tree for @handler wrapped functions (reverse class tree so that inherited functions overwrite parent
     # functions)
+    print("creating dispatch table")
     cls_tree = inspect.getmro(delegate.__class__)
     handlers: Dict[str, HandlerAttributes] = {}
     cls_tree = reversed(list(cls_tree))
@@ -76,7 +77,7 @@ def create_dispatch_table(delegate: object) -> DispatchTable:
             pass_context=handler.pass_context,
             expand_parameters=handler.expand_parameters,
         )
-
+    print(dispatch_table)
     return dispatch_table
 
 

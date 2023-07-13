@@ -105,7 +105,7 @@ _click_format_option = click.option(
 )
 @click.version_option(__version__, "--version", "-v", message="%(version)s")
 @click.option("-d", "--debug", is_flag=True, help="Enable CLI debugging mode")
-@click.option("-Nadar", "--NADARR", is_flag=True, help="Enable CLI debugging mode")
+# @click.option("-Nadar", "--NADARR", is_flag=True, help="Enable CLI debugging mode")
 @click.option("-p", "--profile", type=str, help="Set the configuration profile")
 def localstack(debug, profile) -> None:
     # --profile is read manually in localstack.cli.main because it needs to be read before localstack.config is read
