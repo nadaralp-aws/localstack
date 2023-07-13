@@ -336,6 +336,7 @@ def validate_localstack_config(name: str):
 
 
 def get_docker_image_to_start():
+    print("getting docker image to start")
     image_name = os.environ.get("IMAGE_NAME")
     if not image_name:
         image_name = constants.DOCKER_IMAGE_NAME
