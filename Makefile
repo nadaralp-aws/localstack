@@ -76,7 +76,7 @@ docker-save-image: 		  ## Export the built Docker image
 	docker save -o target/localstack-docker-image-$(PLATFORM).tar $(TAGS)
 
 # By default we export the community image
-TAG ?= $(IMAGE_NAME)
+TAG ?= "aws-custom-localstack"
 # By default we load the result to the docker daemon
 DOCKER_BUILD_FLAGS ?= "--load"
 DOCKERFILE ?= "./Dockerfile"
