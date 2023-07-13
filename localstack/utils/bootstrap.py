@@ -339,6 +339,7 @@ def get_docker_image_to_start():
     print("getting docker image to start")
     image_name = os.environ.get("IMAGE_NAME")
     if not image_name:
+        print("getting default docker image localstack")
         image_name = constants.DOCKER_IMAGE_NAME
         if is_api_key_configured():
             image_name = constants.DOCKER_IMAGE_NAME_PRO
