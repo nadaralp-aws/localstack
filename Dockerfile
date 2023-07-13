@@ -7,8 +7,7 @@ RUN apt-get update && \
         apt-get install -y openjdk-11-jdk-headless && \
         apt-get clean && rm -rf /var/lib/apt/lists/*
 
-#ENV JAVA_HOME /usr/lib/jvm/java-17-openjdk-${TARGETARCH}
-ENV JAVA_HOME /usr/lib/jvm/java-17-openjdk
+ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-${TARGETARCH}
 
 # create a custom, minimized JRE via jlink
 RUN jlink --add-modules \
@@ -28,13 +27,13 @@ jdk.management.agent,\
 java.security.jgss,jdk.security.auth,\
 # Elasticsearch 7+ crashes without Thai Segmentation support
 jdk.localedata --include-locales en,th \
-    --compress 2 --strip-debug --no-header-files --no-man-pages --output /usr/lib/jvm/java-17 && \
-  cp ${JAVA_HOME}/bin/javac /usr/lib/jvm/java-17/bin/javac && \
-  cp -r ${JAVA_HOME}/include /usr/lib/jvm/java-17/include && \
-  mv /usr/lib/jvm/java-17/lib/modules /usr/lib/jvm/java-17/lib/modules.bk; \
-  cp -r ${JAVA_HOME}/lib/* /usr/lib/jvm/java-17/lib/; \
-  mv /usr/lib/jvm/java-17/lib/modules.bk /usr/lib/jvm/java-17/lib/modules; \
-  rm -rf /usr/bin/java ${JAVA_HOME} && ln -s /usr/lib/jvm/java-17/bin/java /usr/bin/java
+    --compress 2 --strip-debug --no-header-files --no-man-pages --output /usr/lib/jvm/java-11 && \
+  cp ${JAVA_HOME}/bin/javac /usr/lib/jvm/java-11/bin/javac && \
+  cp -r ${JAVA_HOME}/include /usr/lib/jvm/java-11/include && \
+  mv /usr/lib/jvm/java-11/lib/modules /usr/lib/jvm/java-11/lib/modules.bk; \
+  cp -r ${JAVA_HOME}/lib/* /usr/lib/jvm/java-11/lib/; \
+  mv /usr/lib/jvm/java-11/lib/modules.bk /usr/lib/jvm/java-11/lib/modules; \
+  rm -rf /usr/bin/java ${JAVA_HOME} && ln -s /usr/lib/jvm/java-11/bin/java /usr/bin/java
 
 
 # base: Stage which installs necessary runtime dependencies (OS packages, java,...)
@@ -65,11 +64,11 @@ RUN { \
         echo 'dirname "$(dirname "$(readlink -f "$(which javac || which java)")")"'; \
     } > /usr/local/bin/docker-java-home \
     && chmod +x /usr/local/bin/docker-java-home
-COPY --from=java-builder /usr/lib/jvm/java-17 /usr/lib/jvm/java-17
+COPY --from=java-builder /usr/lib/jvm/java-11 /usr/lib/jvm/java-11
 COPY --from=java-builder /etc/ssl/certs/java /etc/ssl/certs/java
-COPY --from=java-builder /etc/java-17-openjdk/security /etc/java-17-openjdk/security
-RUN ln -s /usr/lib/jvm/java-17/bin/java /usr/bin/java
-ENV JAVA_HOME /usr/lib/jvm/java-17
+COPY --from=java-builder /etc/java-11-openjdk/security /etc/java-11-openjdk/security
+RUN ln -s /usr/lib/jvm/java-11/bin/java /usr/bin/java
+ENV JAVA_HOME /usr/lib/jvm/java-11
 ENV PATH "${PATH}:${JAVA_HOME}/bin"
 
 # set workdir
@@ -102,7 +101,7 @@ ADD bin/hosts /etc/hosts
 # expose default environment
 # Set edge bind host so localstack can be reached by other containers
 # set library path and default LocalStack hostname
-ENV LD_LIBRARY_PATH=/usr/lib/jvm/java-17/lib:/usr/lib/jvm/java-17/lib/server
+ENV LD_LIBRARY_PATH=/usr/lib/jvm/java-11/lib:/usr/lib/jvm/java-11/lib/server
 ENV USER=localstack
 ENV PYTHONUNBUFFERED=1
 
